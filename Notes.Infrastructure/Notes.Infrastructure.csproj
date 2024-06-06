@@ -16,7 +16,9 @@
     <Folder Include="Migrations\" />
   </ItemGroup>
   
+  <ItemGroup>
+    <ProjectReference Include="..\Notes.Core\Notes.Core.csproj" />
+  </ItemGroup>
 
   
-
 </Project>
