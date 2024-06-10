@@ -3,7 +3,7 @@ using Notes.Core.Entities;
 
 namespace Notes.Infrastructure.Repositories;
 
-interface IRepository<TEntity>
+public interface IRepository<TEntity>
 {
     Task<TEntity> CreateAsync(TEntity entity);
     Task<TEntity> GetAsync(int id);
