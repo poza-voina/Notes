@@ -18,10 +18,15 @@ public class NotesController : ControllerBase
 
 
     [HttpPost("create")]
-    public IActionResult CreateNote([FromBody] CreateNoteCommand note)
+    public async Task<IActionResult> CreateNote([FromBody] CreateNoteCommand note)
     {
-        _mediator.Send(note);
-        return Ok();
+        var result = await _mediator.Send(note);
+        if (result.IsValid)
+        {
+            return Ok();
+        }
+
+        return BadRequest();
     }
     
     

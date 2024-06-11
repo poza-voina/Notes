@@ -20,15 +20,17 @@ services.AddDbContext<ApplicationDbContext>(
 
 services.AddControllers();
 services.AddRouting();
-services.AddTransient<ExceptionHandlingMiddleware>();
+
 services.AddMediatR(cfg =>
 {
     cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
 });
-services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 services.AddValidatorsFromAssemblyContaining<CreateNoteCommandValidator>();
+services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+
 
 services.AddScoped<IRepository<Note>, Repository<Note>>();
+
 
 services.AddCors(options =>
 {
@@ -48,6 +50,6 @@ var app = builder.Build();
 //     app.UseHsts();
 // }
 app.MapControllers();
-app.UseMiddleware<ExceptionHandlingMiddleware>();
+// app.UseMiddleware<ExceptionHandlingMiddleware>();
 
 app.Run();

@@ -9,6 +9,7 @@ namespace Notes.Api.Behaviors;
 
 
 public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
+    where TResponse : class
 {
     private readonly IValidator<TRequest> _validator;
 
@@ -40,7 +41,8 @@ public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TReques
                 Console.WriteLine($"error = {error.PropertyName} {error.ErrorMessage}");
             }
 
-            throw new ValidationException(errors);
+            return (Activator.CreateInstance(typeof(TResponse), null, errors) as TResponse)!;
+            
         }
         else
         {
