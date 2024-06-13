@@ -7,20 +7,23 @@ namespace Notes.Api;
 public interface IValidatable<TResponse>
 {
     public TResponse? Result { get; init; }
-    public ICollection<ValidationFailure>? Errors { get; init; }
+    public ICollection<ValidationFailure>? ValidationFailures { get; init; }
+    public ICollection<ProcessingError>? ProcessingErrors { get; init; }
     public bool IsValid { get; }
 }
 
 public class ValidatableResponse<TResponse> : IValidatable<TResponse>
 {
     public TResponse? Result { get; init; }
-    public ICollection<ValidationFailure>? Errors { get; init; }
-    public bool IsValid => Errors is null || !Errors.Any();
+    public ICollection<ValidationFailure>? ValidationFailures { get; init; }
+    public ICollection<ProcessingError>? ProcessingErrors { get; init; }
+    public bool IsValid => ValidationFailures is null || ProcessingErrors is null || !ValidationFailures.Any() || !ProcessingErrors.Any();
 
-    public ValidatableResponse(TResponse? result, ICollection<ValidationFailure>? errors)
+    public ValidatableResponse(TResponse? result, ICollection<ValidationFailure>? validationFailures, ICollection<ProcessingError>? processingErrors)
     {
         Result = result;
-        Errors = errors;
+        ValidationFailures = validationFailures;
+        ProcessingErrors = processingErrors;
     }
     public ValidatableResponse() { }
 }
