@@ -51,4 +51,20 @@ public class NotesController : ControllerBase
         var result = await _mediator.Send(getNotesQuery);
         return Ok(result);
     }
+
+    [HttpPost("delete")]
+    public async Task<IActionResult> DeleteNoteById([FromBody] DeleteNoteCommand deleteNoteCommand)
+    {
+        var result = await _mediator.Send(deleteNoteCommand);
+        if (!result.IsValidationValid)
+        {
+            return BadRequest(result.ValidationFailures);
+        }
+        if (!result.IsProcessingValid)
+        {
+            return NotFound(result.ProcessingErrors);
+        }
+
+        return Ok();
+    }
 }
