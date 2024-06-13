@@ -67,4 +67,21 @@ public class NotesController : ControllerBase
 
         return Ok();
     }
+
+    [HttpPost("update")]
+    public async Task<IActionResult> UpdateNoteById([FromBody] UpdateNoteCommand updateNoteCommand)
+    {
+        var result = await _mediator.Send(updateNoteCommand);
+        if (!result.IsValidationValid)
+        {
+            return BadRequest(result.ValidationFailures);
+        }
+
+        if (!result.IsProcessingValid)
+        {
+            return NotFound(result.ProcessingErrors);
+        }
+
+        return Ok();
+    }
 }

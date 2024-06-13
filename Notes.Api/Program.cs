@@ -29,6 +29,7 @@ services.AddMediatR(cfg =>
 services.AddValidatorsFromAssemblyContaining<CreateNoteCommandValidator>();
 services.AddValidatorsFromAssemblyContaining<GetNoteQueryValidator>();
 services.AddValidatorsFromAssemblyContaining<DeleteNoteCommandValidator>();
+services.AddValidatorsFromAssemblyContaining<UpdateNoteCommandValidator>();
 
 services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
