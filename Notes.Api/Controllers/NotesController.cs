@@ -2,6 +2,7 @@ using System.ComponentModel.DataAnnotations;
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
 using Notes.Api.Notes.Commands;
+using Notes.Api.Notes.Queries;
 
 namespace Notes.Api.Controllers;
 
@@ -26,8 +27,21 @@ public class NotesController : ControllerBase
             return Ok();
         }
 
-        return BadRequest();
+        return BadRequest(result.ValidationFailures);
     }
-    
-    
+
+    [HttpGet("get")]
+    public async Task<IActionResult> GetNoteById([FromQuery] GetNoteQuery getNoteQuery)
+    {
+        var result = await _mediator.Send(getNoteQuery);
+        if (!result.IsValidationValid)
+        {
+            return BadRequest(result.ValidationFailures);
+        }
+        if (!result.IsProcessingValid)
+        {
+            return NotFound(result.ProcessingErrors);
+        }
+        return Ok(result.Result);
+    }
 }

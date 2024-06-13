@@ -9,12 +9,13 @@ using Notes.Infrastructure.Repositories;
 using Microsoft.Extensions.DependencyInjection;
 using Notes.Api.Middlewares;
 using Notes.Api.Notes.Commands;
+using Notes.Api.Notes.Queries;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 
 var connectionString =  
-    "User ID=postgres;Password=psql;Server=localhost;Port=5432;Database=Notes;Include Error Detail=true";  
+    "User ID=postgres;Password=psql;Server=localhost;Port=1111;Database=Notes;Include Error Detail=true";  
 services.AddDbContext<ApplicationDbContext>(  
     options => options.UseNpgsql(connectionString));
 
@@ -26,6 +27,8 @@ services.AddMediatR(cfg =>
     cfg.RegisterServicesFromAssembly(Assembly.GetExecutingAssembly());
 });
 services.AddValidatorsFromAssemblyContaining<CreateNoteCommandValidator>();
+services.AddValidatorsFromAssemblyContaining<GetNoteQueryValidator>();
+
 services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
 
