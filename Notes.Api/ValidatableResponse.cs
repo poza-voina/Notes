@@ -10,6 +10,8 @@ public interface IValidatable<TResponse>
     public ICollection<ValidationFailure>? ValidationFailures { get; init; }
     public ICollection<ProcessingError>? ProcessingErrors { get; init; }
     public bool IsValid { get; }
+    public bool IsValidationValid { get; }
+    public bool IsProcessingValid { get; }
 }
 
 public class ValidatableResponse<TResponse> : IValidatable<TResponse>
@@ -17,7 +19,9 @@ public class ValidatableResponse<TResponse> : IValidatable<TResponse>
     public TResponse? Result { get; init; }
     public ICollection<ValidationFailure>? ValidationFailures { get; init; }
     public ICollection<ProcessingError>? ProcessingErrors { get; init; }
-    public bool IsValid => ValidationFailures is null || ProcessingErrors is null || !ValidationFailures.Any() || !ProcessingErrors.Any();
+    public bool IsValid => IsValidationValid && IsProcessingValid;
+    public bool IsValidationValid => ValidationFailures is null || !ValidationFailures.Any();
+    public bool IsProcessingValid => ProcessingErrors is null || !ProcessingErrors.Any();
 
     public ValidatableResponse(TResponse? result, ICollection<ValidationFailure>? validationFailures, ICollection<ProcessingError>? processingErrors)
     {
