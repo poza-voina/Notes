@@ -11,15 +11,22 @@ namespace Notes.Api.Behaviors;
 public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TResponse : class
 {
-    private readonly IValidator<TRequest> _validator;
+    private readonly IValidator<TRequest>? _validator;
 
     public ValidationBehavior(IValidator<TRequest> validator)
     {
         _validator = validator;
     }
     
+    public ValidationBehavior() {}
+    
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
+        if (_validator is null)
+        {
+            var response = await next();
+            return response;   
+        }
         Console.WriteLine("ValidationBehaviorHandle");
         ValidationContext<TRequest> context = new (request);
         var validationResult = await _validator.ValidateAsync(context);
