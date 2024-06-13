@@ -44,4 +44,11 @@ public class NotesController : ControllerBase
         }
         return Ok(result.Result);
     }
+
+    [HttpGet("get-all")]
+    public async Task<IActionResult> GetAllNotes([FromQuery] GetNotesQuery getNotesQuery)
+    {
+        var result = await _mediator.Send(getNotesQuery);
+        return Ok(result);
+    }
 }
