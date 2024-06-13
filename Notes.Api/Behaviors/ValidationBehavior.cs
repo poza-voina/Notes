@@ -48,7 +48,7 @@ public class ValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TReques
                 Console.WriteLine($"error = {error.PropertyName} {error.ErrorMessage}");
             }
 
-            return (Activator.CreateInstance(typeof(TResponse), null, errors) as TResponse)!;
+            return (Activator.CreateInstance(typeof(TResponse), null, errors, null) as TResponse)!;
             
         }
         else
