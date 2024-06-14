@@ -68,4 +68,21 @@ public class TagsController : ControllerBase
 
         return Ok();
     }
+
+    [HttpPost("update")]
+    public async Task<IActionResult> UpdateTagById([FromBody] UpdateTagCommand updateTagCommand)
+    {
+        var result = await _mediator.Send(updateTagCommand);
+        if (!result.IsValidationValid)
+        {
+            return BadRequest(result.ValidationFailures);
+        }
+
+        if (!result.IsProcessingValid)
+        {
+            return NotFound(result.ProcessingErrors);
+        }
+
+        return Ok();
+    }
 }
