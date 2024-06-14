@@ -18,6 +18,9 @@
   <ItemGroup>
     <ProjectReference Include="..\Notes.Infrastructure\Notes.Infrastructure.csproj" />
   </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Tags\" />
+  </ItemGroup>
 
 
 </Project>

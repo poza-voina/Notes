@@ -10,6 +10,7 @@ using Microsoft.Extensions.DependencyInjection;
 using Notes.Api.Middlewares;
 using Notes.Api.Notes.Commands;
 using Notes.Api.Notes.Queries;
+using Notes.Api.Tags.Commands;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
@@ -31,11 +32,17 @@ services.AddValidatorsFromAssemblyContaining<GetNoteQueryValidator>();
 services.AddValidatorsFromAssemblyContaining<DeleteNoteCommandValidator>();
 services.AddValidatorsFromAssemblyContaining<UpdateNoteCommandValidator>();
 
+services.AddValidatorsFromAssemblyContaining<CreateTagCommandValidator>();
+
+
+
+
+
 services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 
 
 services.AddScoped<IRepository<Note>, Repository<Note>>();
-
+services.AddScoped<IRepository<Tag>, Repository<Tag>>();
 
 services.AddCors(options =>
 {
