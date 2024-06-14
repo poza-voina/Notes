@@ -34,6 +34,7 @@ services.AddValidatorsFromAssemblyContaining<UpdateNoteCommandValidator>();
 
 services.AddValidatorsFromAssemblyContaining<CreateTagCommandValidator>();
 services.AddValidatorsFromAssemblyContaining<GetNoteQueryValidator>();
+services.AddValidatorsFromAssemblyContaining<DeleteTagCommandValidator>();
 
 
 

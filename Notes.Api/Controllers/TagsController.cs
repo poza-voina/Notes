@@ -1,5 +1,6 @@
 using Notes.Core.Entities;
 using MediatR;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Notes.Api.Tags.Commands;
 using Notes.Api.Tags.Queries;
@@ -49,4 +50,22 @@ public class TagsController : ControllerBase
     [HttpGet("get-all")]
     public async Task<IActionResult> GetAllTags([FromQuery] GetTagsQuery getTagsQuery) =>
         Ok(await _mediator.Send(getTagsQuery));
+
+
+    [HttpPost("delete")]
+    public async Task<IActionResult> DeleteTagById([FromBody] DeleteTagCommand deleteTagCommand)
+    {
+        var result = await _mediator.Send(deleteTagCommand);
+        if (!result.IsValidationValid)
+        {
+            return BadRequest(result.ValidationFailures);
+        }
+
+        if (!result.IsProcessingValid)
+        {
+            return NotFound(result.ProcessingErrors);
+        }
+
+        return Ok();
+    }
 }
