@@ -25,6 +25,7 @@ public class TagsController : ControllerBase
         {
             return BadRequest(result.ValidationFailures);
         }
+
         return Ok();
     }
 
@@ -43,6 +44,9 @@ public class TagsController : ControllerBase
         }
 
         return Ok(result.Result);
-
     }
+
+    [HttpGet("get-all")]
+    public async Task<IActionResult> GetAllTags([FromQuery] GetTagsQuery getTagsQuery) =>
+        Ok(await _mediator.Send(getTagsQuery));
 }
