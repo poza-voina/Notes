@@ -2,6 +2,7 @@ using Notes.Core.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Mvc;
 using Notes.Api.Tags.Commands;
+using Notes.Api.Tags.Queries;
 
 namespace Notes.Api.Controllers;
 
@@ -25,5 +26,23 @@ public class TagsController : ControllerBase
             return BadRequest(result.ValidationFailures);
         }
         return Ok();
+    }
+
+    [HttpGet("get")]
+    public async Task<IActionResult> GetTagById([FromQuery] GetTagQuery getTagQuery)
+    {
+        var result = await _mediator.Send(getTagQuery);
+        if (!result.IsValidationValid)
+        {
+            return BadRequest(result.ValidationFailures);
+        }
+
+        if (!result.IsProcessingValid)
+        {
+            return NotFound(result.ProcessingErrors);
+        }
+
+        return Ok(result.Result);
+
     }
 }

@@ -33,6 +33,7 @@ services.AddValidatorsFromAssemblyContaining<DeleteNoteCommandValidator>();
 services.AddValidatorsFromAssemblyContaining<UpdateNoteCommandValidator>();
 
 services.AddValidatorsFromAssemblyContaining<CreateTagCommandValidator>();
+services.AddValidatorsFromAssemblyContaining<GetNoteQueryValidator>();
 
 
 
