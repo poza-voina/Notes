@@ -22,9 +22,9 @@ public class CreateNoteCommandHandler : IRequestHandler<CreateNoteCommand, Valid
     {
         Console.WriteLine("CreateNoteCommandHandler Handle");
         Note note = new Note { Title = request.Title!, Text = request.Text!};
-        if (request.Tags is not null && request.Tags.Count != 0)
+        if (request.TagsTitles is not null && request.TagsTitles.Count != 0)
         {
-            note = await _tagsService.AddTagsToNoteAsync(request.Tags, note);
+            note = await _tagsService.AddTagsToNoteAsync(request.TagsTitles, note);
         }
         
         note = await _noteRepository.CreateAsync(note);
