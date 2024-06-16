@@ -1,6 +1,6 @@
 using Notes.Core.Entities;
 
-namespace Notes.Api.Tags.Queries;
+namespace Notes.Api.Tags.Queries.ViewModels;
 
 public class TagsVm
 {

@@ -2,7 +2,10 @@ using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Notes.Core.Entities;
 using Notes.Infrastructure.Repositories;
+using Notes.Api.Tags.Queries.ViewModels;
+
 namespace Notes.Api.Tags.Queries;
+
 
 public class GetTagsQueryHandler : IRequestHandler<GetTagsQuery, TagsVm>
 {
