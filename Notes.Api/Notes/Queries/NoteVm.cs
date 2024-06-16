@@ -1,3 +1,5 @@
+using Notes.Core.Entities;
+
 namespace Notes.Api.Notes.Queries;
 
 public class NoteVm
@@ -6,5 +8,5 @@ public class NoteVm
     public string? Title { get; init; }
     public string? Text { get; init; }
     
-    public ICollection<string>? Tags { get; set; }
+    public ICollection<Tag>? Tags { get; set; }
 }

@@ -18,7 +18,7 @@ public class GetNoteQueryHandler : IRequestHandler<GetNoteQuery, ValidatableResp
         {
             var note = await _noteRepository.GetAsync(request.Id);
             return new ValidatableResponse<NoteVm>
-                { Result = new NoteVm { Id = note.Id, Title = note.Title, Text = note.Text } };
+                { Result = new NoteVm { Id = note.Id, Title = note.Title, Text = note.Text, Tags = note.Tags} };
         }
         catch (ArgumentException e)
         {
