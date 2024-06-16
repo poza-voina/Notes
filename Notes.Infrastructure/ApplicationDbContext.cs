@@ -17,9 +17,13 @@ public class ApplicationDbContext : DbContext
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
-        modelBuilder.Entity<Note>();
-        modelBuilder.Entity<Reminder>();
-        modelBuilder.Entity<Tag>();
+        modelBuilder.Entity<Note>().HasKey(n => n.Id);
+        modelBuilder.Entity<Reminder>().HasKey(r => r.Id);
+        modelBuilder.Entity<Tag>().HasKey(t => t.Id);
+
+        modelBuilder.Entity<Note>().HasMany(e => e.Tags).WithMany(e => e.Notes).UsingEntity(j => j.ToTable("NotesTags"));
+        modelBuilder.Entity<Reminder>().HasMany(e => e.Tags).WithMany(e => e.Reminders)
+            .UsingEntity(j => j.ToTable("RemindersTags"));
     }
     
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

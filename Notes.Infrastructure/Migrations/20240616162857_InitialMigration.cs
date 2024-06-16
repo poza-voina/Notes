@@ -47,47 +47,89 @@ namespace Notes.Infrastructure.Migrations
                 {
                     Id = table.Column<int>(type: "integer", nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn),
-                    Title = table.Column<string>(type: "text", nullable: false),
-                    NoteId = table.Column<int>(type: "integer", nullable: true),
-                    ReminderId = table.Column<int>(type: "integer", nullable: true)
+                    Title = table.Column<string>(type: "text", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Tags", x => x.Id);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "NotesTags",
+                columns: table => new
+                {
+                    NotesId = table.Column<int>(type: "integer", nullable: false),
+                    TagsId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_NotesTags", x => new { x.NotesId, x.TagsId });
                     table.ForeignKey(
-                        name: "FK_Tags_Notes_NoteId",
-                        column: x => x.NoteId,
+                        name: "FK_NotesTags_Notes_NotesId",
+                        column: x => x.NotesId,
                         principalTable: "Notes",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Tags_Reminders_ReminderId",
-                        column: x => x.ReminderId,
+                        name: "FK_NotesTags_Tags_TagsId",
+                        column: x => x.TagsId,
+                        principalTable: "Tags",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "RemindersTags",
+                columns: table => new
+                {
+                    RemindersId = table.Column<int>(type: "integer", nullable: false),
+                    TagsId = table.Column<int>(type: "integer", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_RemindersTags", x => new { x.RemindersId, x.TagsId });
+                    table.ForeignKey(
+                        name: "FK_RemindersTags_Reminders_RemindersId",
+                        column: x => x.RemindersId,
                         principalTable: "Reminders",
-                        principalColumn: "Id");
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                    table.ForeignKey(
+                        name: "FK_RemindersTags_Tags_TagsId",
+                        column: x => x.TagsId,
+                        principalTable: "Tags",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tags_NoteId",
-                table: "Tags",
-                column: "NoteId");
+                name: "IX_NotesTags_TagsId",
+                table: "NotesTags",
+                column: "TagsId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Tags_ReminderId",
-                table: "Tags",
-                column: "ReminderId");
+                name: "IX_RemindersTags_TagsId",
+                table: "RemindersTags",
+                column: "TagsId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Tags");
+                name: "NotesTags");
+
+            migrationBuilder.DropTable(
+                name: "RemindersTags");
 
             migrationBuilder.DropTable(
                 name: "Notes");
 
             migrationBuilder.DropTable(
                 name: "Reminders");
+
+            migrationBuilder.DropTable(
+                name: "Tags");
         }
     }
 }

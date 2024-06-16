@@ -12,8 +12,8 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Notes.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20240606090128_InitialMigration")]
-    partial class InitialMigration
+    [Migration("20240616154712_CreateManyToManyNotesTags")]
+    partial class CreateManyToManyNotesTags
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -21,6 +21,9 @@ namespace Notes.Infrastructure.Migrations
 #pragma warning disable 612, 618
             modelBuilder
                 .HasAnnotation("ProductVersion", "7.0.2")
+                .HasAnnotation("Proxies:ChangeTracking", false)
+                .HasAnnotation("Proxies:CheckEquality", false)
+                .HasAnnotation("Proxies:LazyLoading", true)
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
@@ -83,12 +86,6 @@ namespace Notes.Infrastructure.Migrations
 
                     NpgsqlPropertyBuilderExtensions.UseIdentityByDefaultColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("NoteId")
-                        .HasColumnType("integer");
-
-                    b.Property<int?>("ReminderId")
-                        .HasColumnType("integer");
-
                     b.Property<string>("Title")
                         .IsRequired()
                         .HasColumnType("text")
@@ -96,32 +93,67 @@ namespace Notes.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("NoteId");
-
-                    b.HasIndex("ReminderId");
-
                     b.ToTable("Tags");
                 });
 
-            modelBuilder.Entity("Notes.Core.Entities.Tag", b =>
+            modelBuilder.Entity("NotesTags", b =>
+                {
+                    b.Property<int>("NotesId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TagsId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("NotesId", "TagsId");
+
+                    b.HasIndex("TagsId");
+
+                    b.ToTable("NotesTags");
+                });
+
+            modelBuilder.Entity("ReminderTag", b =>
+                {
+                    b.Property<int>("RemindersId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TagsId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("RemindersId", "TagsId");
+
+                    b.HasIndex("TagsId");
+
+                    b.ToTable("ReminderTag");
+                });
+
+            modelBuilder.Entity("NotesTags", b =>
                 {
                     b.HasOne("Notes.Core.Entities.Note", null)
-                        .WithMany("Tags")
-                        .HasForeignKey("NoteId");
+                        .WithMany()
+                        .HasForeignKey("NotesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
+                    b.HasOne("Notes.Core.Entities.Tag", null)
+                        .WithMany()
+                        .HasForeignKey("TagsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("ReminderTag", b =>
+                {
                     b.HasOne("Notes.Core.Entities.Reminder", null)
-                        .WithMany("Tags")
-                        .HasForeignKey("ReminderId");
-                });
+                        .WithMany()
+                        .HasForeignKey("RemindersId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
 
-            modelBuilder.Entity("Notes.Core.Entities.Note", b =>
-                {
-                    b.Navigation("Tags");
-                });
-
-            modelBuilder.Entity("Notes.Core.Entities.Reminder", b =>
-                {
-                    b.Navigation("Tags");
+                    b.HasOne("Notes.Core.Entities.Tag", null)
+                        .WithMany()
+                        .HasForeignKey("TagsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 #pragma warning restore 612, 618
         }

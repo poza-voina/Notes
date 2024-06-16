@@ -2,6 +2,7 @@
 using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 using Notes.Infrastructure;
 using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
@@ -11,9 +12,11 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 namespace Notes.Infrastructure.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    partial class ApplicationDbContextModelSnapshot : ModelSnapshot
+    [Migration("20240616154218_CreateManyToManyNotesTags")]
+    partial class CreateManyToManyNotesTags
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -24,21 +27,6 @@ namespace Notes.Infrastructure.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 63);
 
             NpgsqlModelBuilderExtensions.UseIdentityByDefaultColumns(modelBuilder);
-
-            modelBuilder.Entity("NoteTag", b =>
-                {
-                    b.Property<int>("NotesId")
-                        .HasColumnType("integer");
-
-                    b.Property<int>("TagsId")
-                        .HasColumnType("integer");
-
-                    b.HasKey("NotesId", "TagsId");
-
-                    b.HasIndex("TagsId");
-
-                    b.ToTable("NotesTags", (string)null);
-                });
 
             modelBuilder.Entity("Notes.Core.Entities.Note", b =>
                 {
@@ -108,6 +96,21 @@ namespace Notes.Infrastructure.Migrations
                     b.ToTable("Tags");
                 });
 
+            modelBuilder.Entity("NotesTags", b =>
+                {
+                    b.Property<int>("NotesId")
+                        .HasColumnType("integer");
+
+                    b.Property<int>("TagsId")
+                        .HasColumnType("integer");
+
+                    b.HasKey("NotesId", "TagsId");
+
+                    b.HasIndex("TagsId");
+
+                    b.ToTable("NotesTags");
+                });
+
             modelBuilder.Entity("ReminderTag", b =>
                 {
                     b.Property<int>("RemindersId")
@@ -120,10 +123,10 @@ namespace Notes.Infrastructure.Migrations
 
                     b.HasIndex("TagsId");
 
-                    b.ToTable("RemindersTags", (string)null);
+                    b.ToTable("ReminderTag");
                 });
 
-            modelBuilder.Entity("NoteTag", b =>
+            modelBuilder.Entity("NotesTags", b =>
                 {
                     b.HasOne("Notes.Core.Entities.Note", null)
                         .WithMany()
