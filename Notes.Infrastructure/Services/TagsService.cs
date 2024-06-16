@@ -5,7 +5,8 @@ namespace Notes.Infrastructure.Services;
 
 public interface ITagsService
 {
-    public Task<Note> AddTagsToNoteAsync(ICollection<string> tagsTitles, Note note);
+    public Task AddTagsToNoteAsync(ICollection<string> tagsTitles, Note note);
+    public Task SetTagsToNoteAsync(ICollection<string> tagTitles, Note note);
 }
 
 public class TagsService : ITagsService
@@ -19,7 +20,7 @@ public class TagsService : ITagsService
         _noteRepository = noteRepository;
     }
 
-    public async Task<Note> AddTagsToNoteAsync(ICollection<string> tagsTitles, Note note)
+    public async Task AddTagsToNoteAsync(ICollection<string> tagsTitles, Note note)
     {
         ICollection<Tag> allTags = await _tagRepository.CreateTagsAsync(tagsTitles);
         if (note.Tags is null)
@@ -29,8 +30,16 @@ public class TagsService : ITagsService
         Console.WriteLine($"note.Tags is null = {note.Tags is null}");
         note.Tags = note.Tags.Union(allTags).ToList();
         Console.WriteLine($"note.Tags is null = {note.Tags is null}");
+    }
 
-        return note;
+    public async Task SetTagsToNoteAsync(ICollection<string> tagTitles, Note note)
+    {
+        ICollection<Tag> allTags = await _tagRepository.CreateTagsAsync(tagTitles);
+        if (note.Tags is null)
+        {
+            note.Tags = new List<Tag>();
+        }
+        note.Tags = allTags;
     }
     
     public void AddTagsToNote(ICollection<Tag> tags, Note note)
