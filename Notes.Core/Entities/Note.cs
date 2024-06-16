@@ -10,7 +10,7 @@ public class Note : BaseEntity
     public string Title { get; set; } = default!;
     [Column("Text")]
     public string Text { get; set; } = default!;
-    
-    public ICollection<Tag> Tags { get; set; } = default!;
-    
+
+    public virtual ICollection<Tag>? Tags { get; set; }
+
 }

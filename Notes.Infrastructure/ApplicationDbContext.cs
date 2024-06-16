@@ -21,4 +21,10 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<Reminder>();
         modelBuilder.Entity<Tag>();
     }
+    
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder
+            .UseLazyLoadingProxies();
+    }
 }
