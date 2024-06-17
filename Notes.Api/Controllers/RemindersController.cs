@@ -28,7 +28,7 @@ public class RemindersController : ControllerBase
     }
     
     [HttpGet("get")]
-    public async Task<IActionResult> GetNoteById([FromQuery] GetReminderQuery getReminderQuery)
+    public async Task<IActionResult> GetReminderById([FromQuery] GetReminderQuery getReminderQuery)
     {
         var result = await _mediator.Send(getReminderQuery);
         if (!result.IsValidationValid)
@@ -40,5 +40,12 @@ public class RemindersController : ControllerBase
             return NotFound(result.ProcessingErrors);
         }
         return Ok(result.Result);
+    }
+    
+    [HttpGet("get-all")]
+    public async Task<IActionResult> GetReminders([FromQuery] GetRemindersQuery getRemindersQuery)
+    {
+        var result = await _mediator.Send(getRemindersQuery);
+        return Ok(result);
     }
 }
