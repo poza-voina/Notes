@@ -64,4 +64,21 @@ public class RemindersController : ControllerBase
 
         return Ok();
     }
+    
+    [HttpPost("update")]
+    public async Task<IActionResult> UpdateNoteById([FromBody] UpdateReminderCommand updateReminderCommand)
+    {
+        var result = await _mediator.Send(updateReminderCommand);
+        if (!result.IsValidationValid)
+        {
+            return BadRequest(result.ValidationFailures);
+        }
+
+        if (!result.IsProcessingValid)
+        {
+            return NotFound(result.ProcessingErrors);
+        }
+
+        return Ok(result.Result);
+    }
 }
