@@ -46,6 +46,7 @@ services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>
 
 
 services.AddScoped<IRepository<Note>, Repository<Note>>();
+services.AddScoped<IRepository<Reminder>, Repository<Reminder>>();
 services.AddScoped<IRepository<Tag>, Repository<Tag>>();
 services.AddScoped<ITagRepository, TagRepository>();
 
