@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
 using Notes.Api.Reminders.Commands;
+using Notes.Api.Reminders.Queries;
 
 namespace Notes.Api.Controllers;
 
@@ -24,5 +25,20 @@ public class RemindersController : ControllerBase
         }
 
         return BadRequest(result.ValidationFailures);
+    }
+    
+    [HttpGet("get")]
+    public async Task<IActionResult> GetNoteById([FromQuery] GetReminderQuery getReminderQuery)
+    {
+        var result = await _mediator.Send(getReminderQuery);
+        if (!result.IsValidationValid)
+        {
+            return BadRequest(result.ValidationFailures);
+        }
+        if (!result.IsProcessingValid)
+        {
+            return NotFound(result.ProcessingErrors);
+        }
+        return Ok(result.Result);
     }
 }
