@@ -85,4 +85,21 @@ public class TagsController : ControllerBase
 
         return Ok();
     }
+
+    [HttpPost("bind-to-note")]
+    public async Task<IActionResult> BindToNote([FromBody] BindTagToNoteCommand bindTagToNoteCommand)
+    {
+        var result = await _mediator.Send(bindTagToNoteCommand);
+        if (!result.IsValidationValid)
+        {
+            return BadRequest(result.ValidationFailures);
+        }
+
+        if (!result.IsProcessingValid)
+        {
+            return NotFound(result.ProcessingErrors);
+        }
+
+        return Ok();
+    }
 }
