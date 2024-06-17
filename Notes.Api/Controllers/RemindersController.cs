@@ -48,4 +48,20 @@ public class RemindersController : ControllerBase
         var result = await _mediator.Send(getRemindersQuery);
         return Ok(result);
     }
+    
+    [HttpPost("delete")]
+    public async Task<IActionResult> DeleteReminderById([FromBody] DeleteReminderCommand deleteReminderCommand)
+    {
+        var result = await _mediator.Send(deleteReminderCommand);
+        if (!result.IsValidationValid)
+        {
+            return BadRequest(result.ValidationFailures);
+        }
+        if (!result.IsProcessingValid)
+        {
+            return NotFound(result.ProcessingErrors);
+        }
+
+        return Ok();
+    }
 }
