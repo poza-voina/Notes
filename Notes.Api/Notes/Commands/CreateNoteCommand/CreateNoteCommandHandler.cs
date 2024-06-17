@@ -21,7 +21,7 @@ public class CreateNoteCommandHandler : IRequestHandler<CreateNoteCommand, Valid
     public async Task<ValidatableResponse<int>> Handle(CreateNoteCommand request, CancellationToken cancellationToken)
     {
         Console.WriteLine("CreateNoteCommandHandler Handle");
-        Note note = new Note { Title = request.Title!, Text = request.Text!};
+        Note note = new Note { Title = request.Title ?? "", Text = request.Text ?? ""};
         if (request.TagsTitles is not null && request.TagsTitles.Count != 0)
         {
             await _tagsService.SetTagsToNoteAsync(request.TagsTitles, note);
