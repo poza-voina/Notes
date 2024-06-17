@@ -7,6 +7,7 @@ public interface ITagsService
 {
     public Task AddTagsToNoteAsync(ICollection<string> tagsTitles, Note note);
     public Task SetTagsToNoteAsync(ICollection<string> tagTitles, Note note);
+    public Task AddTagToNoteAsync(int tagId, int noteId);
 }
 
 public class TagsService : ITagsService
@@ -40,6 +41,18 @@ public class TagsService : ITagsService
             note.Tags = new List<Tag>();
         }
         note.Tags = allTags;
+    }
+
+    public async Task AddTagToNoteAsync(int tagId, int noteId)
+    {
+        var tag = await _tagRepository.GetAsync(tagId);
+        var note = await _noteRepository.GetAsync(noteId);
+        if (note.Tags is null)
+        {
+            note.Tags = new List<Tag>();
+        }
+        note.Tags.Add(tag);
+        await _noteRepository.UpdateAsync(note);
     }
     
     public void AddTagsToNote(ICollection<Tag> tags, Note note)
