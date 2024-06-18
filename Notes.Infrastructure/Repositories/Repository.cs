@@ -8,7 +8,7 @@ public interface IRepository<TEntity>
     Task<TEntity> CreateAsync(TEntity entity);
     Task<TEntity> GetAsync(int id);
     Task<TEntity> UpdateAsync(TEntity entity);
-    void DeleteAsync(TEntity entity);
+    Task DeleteAsync(TEntity entity);
     public IQueryable<TEntity> Items { get; }
 }
 
@@ -41,7 +41,7 @@ public class Repository<TEntity> : IRepository<TEntity>, IDisposable, IAsyncDisp
         return entity;
     }
 
-    public async void DeleteAsync(TEntity entity)
+    public async Task DeleteAsync(TEntity entity)
     {
         Set.Remove(entity);
         await DbContext.SaveChangesAsync();
