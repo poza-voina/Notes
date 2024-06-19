@@ -11,15 +11,15 @@ using Notes.Api.Middlewares;
 using Notes.Api.Notes.Commands;
 using Notes.Api.Notes.Queries;
 using Notes.Api.Tags.Commands;
+using Notes.Api.Extenstions;
 using Notes.Infrastructure.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 
 var connectionString =  
-    "User ID=postgres;Password=psql;Server=localhost;Port=1111;Database=Notes;Include Error Detail=true";  
-services.AddDbContext<ApplicationDbContext>(  
-    options => options.UseNpgsql(connectionString));
+    "User ID=postgres;Password=psql;Server=localhost;Port=1111;Database=Notes;Include Error Detail=true";
+services.AddDbContext(connectionString);
 
 services.AddControllers();
 services.AddRouting();
@@ -38,19 +38,10 @@ services.AddValidatorsFromAssemblyContaining<GetNoteQueryValidator>();
 services.AddValidatorsFromAssemblyContaining<DeleteTagCommandValidator>();
 services.AddValidatorsFromAssemblyContaining<UpdateTagCommandValidator>();
 
-
-
-
-
 services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
+services.AddRepositories();
+services.AddServices();
 
-
-services.AddScoped<IRepository<Note>, Repository<Note>>();
-services.AddScoped<IRepository<Reminder>, Repository<Reminder>>();
-services.AddScoped<IRepository<Tag>, Repository<Tag>>();
-services.AddScoped<ITagRepository, TagRepository>();
-
-services.AddScoped<ITagsService, TagsService>();
 
 services.AddCors(options =>
 {
