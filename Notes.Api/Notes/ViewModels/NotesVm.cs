@@ -1,6 +1,6 @@
 using Notes.Core.Entities;
 
-namespace Notes.Api.Notes.Queries.ViewModels;
+namespace Notes.Api.Notes.ViewModels;
 
 public class NotesVm
 {
