@@ -24,7 +24,7 @@ public class NotesController : ControllerBase
         var result = await _mediator.Send(note);
         if (result.IsValid)
         {
-            return Ok();
+            return Ok(result.Result);
         }
 
         return BadRequest(result.ValidationFailures);

@@ -3,10 +3,11 @@ using MediatR;
 using Notes.Core.Entities;
 using Notes.Infrastructure.Repositories;
 using Notes.Infrastructure.Services;
+using Notes.Api.Notes.ViewModels;
 
 namespace Notes.Api.Notes.Commands;
 
-public class CreateNoteCommandHandler : IRequestHandler<CreateNoteCommand, ValidatableResponse<int>>
+public class CreateNoteCommandHandler : IRequestHandler<CreateNoteCommand, ValidatableResponse<NoteVm>>
 {
     private readonly IRepository<Note> _noteRepository;
     private readonly IValidator<CreateNoteCommand> _validator;
@@ -18,7 +19,7 @@ public class CreateNoteCommandHandler : IRequestHandler<CreateNoteCommand, Valid
         _tagsService = tagsService;
     }
     
-    public async Task<ValidatableResponse<int>> Handle(CreateNoteCommand request, CancellationToken cancellationToken)
+    public async Task<ValidatableResponse<NoteVm>> Handle(CreateNoteCommand request, CancellationToken cancellationToken)
     {
         Console.WriteLine("CreateNoteCommandHandler Handle");
         Note note = new Note { Title = request.Title ?? "", Text = request.Text ?? ""};
@@ -28,6 +29,15 @@ public class CreateNoteCommandHandler : IRequestHandler<CreateNoteCommand, Valid
         }
         
         note = await _noteRepository.CreateAsync(note);
-        return new ValidatableResponse<int> {Result = note.Id};
+        return new ValidatableResponse<NoteVm>
+        {
+            Result = new NoteVm
+            {
+                Id = note.Id,
+                Title = note.Title,
+                Text = note.Text,
+                Tags = note.Tags
+            }
+        };
     }
 }
