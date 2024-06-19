@@ -1,6 +1,6 @@
 using MediatR;
 
-namespace Notes.Api.Tags.Commands.UnbindTagFromNote;
+namespace Notes.Api.Tags.Commands;
 
 public class UnbindTagFromNoteCommand : IRequest<ValidatableResponse<int>>
 {

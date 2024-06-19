@@ -1,5 +1,5 @@
 using FluentValidation;
-namespace Notes.Api.Tags.Commands.UnbindTagFromNote;
+namespace Notes.Api.Tags.Commands;
 
 public class UnbindTagFromNoteCommandValidator : AbstractValidator<UnbindTagFromNoteCommand>
 {
