@@ -3,6 +3,7 @@ using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
 using Microsoft.AspNetCore.Mvc;
 using Notes.Api.Tags.Commands;
+using Notes.Api.Tags.Commands.UnbindTagFromNote;
 using Notes.Api.Tags.Queries;
 
 namespace Notes.Api.Controllers;
@@ -107,6 +108,23 @@ public class TagsController : ControllerBase
     public async Task<IActionResult> BindToReminder([FromBody] BindTagToReminderCommand bindTagToReminder)
     {
         var result = await _mediator.Send(bindTagToReminder);
+        if (!result.IsValidationValid)
+        {
+            return BadRequest(result.ValidationFailures);
+        }
+
+        if (!result.IsProcessingValid)
+        {
+            return NotFound(result.ProcessingErrors);
+        }
+
+        return Ok();
+    }
+
+    [HttpPost("unbind-from-note")]
+    public async Task<IActionResult> UnbindFromNote([FromBody] UnbindTagFromNoteCommand command)
+    {
+        var result = await _mediator.Send(command);
         if (!result.IsValidationValid)
         {
             return BadRequest(result.ValidationFailures);

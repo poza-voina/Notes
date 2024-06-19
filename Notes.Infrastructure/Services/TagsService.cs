@@ -1,4 +1,5 @@
 using System.Collections;
+using Microsoft.EntityFrameworkCore;
 using Notes.Core.Entities;
 using Notes.Infrastructure.Repositories;
 namespace Notes.Infrastructure.Services;
@@ -11,6 +12,8 @@ public interface ITagsService
     public Task SetTagsToNoteAsync(ICollection<string> tagTitles, Note note);
     public Task AddTagToNoteAsync(int tagId, int noteId);
     public Task AddTagToReminderAsync(int tagId, int reminderId);
+
+    public Task UnbindTagFromNoteAsync(int tagId, int noteId);
 
 }
 
@@ -48,6 +51,18 @@ public class TagsService : ITagsService
             entity.Tags = new List<Tag>();
         }
         entity.Tags = allTags;
+    }
+
+    public async Task UnbindTagFromNoteAsync(int tagId, int noteId)
+    {
+        var note = await _noteRepository.GetAsync(noteId);
+        if (note.Tags is null)
+        {
+            throw new InvalidOperationException("tag not found");
+        }
+        var tag = note.Tags.First(t => t.Id == tagId);
+        note.Tags.Remove(tag);
+        await _noteRepository.UpdateAsync(note);
     }
 
     public async Task SetTagsToNoteAsync(ICollection<string> tagTitles, Note note)
