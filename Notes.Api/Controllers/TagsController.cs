@@ -102,4 +102,21 @@ public class TagsController : ControllerBase
 
         return Ok();
     }
+    
+    [HttpPost("bind-to-reminder")]
+    public async Task<IActionResult> BindToReminder([FromBody] BindTagToReminderCommand bindTagToReminder)
+    {
+        var result = await _mediator.Send(bindTagToReminder);
+        if (!result.IsValidationValid)
+        {
+            return BadRequest(result.ValidationFailures);
+        }
+
+        if (!result.IsProcessingValid)
+        {
+            return NotFound(result.ProcessingErrors);
+        }
+
+        return Ok();
+    }
 }
