@@ -16,7 +16,7 @@ public class RemindersController : ControllerBase
     }
     
     [HttpPost("create")]
-    public async Task<IActionResult> CreateNote([FromBody] CreateReminderCommand reminderCommand)
+    public async Task<IActionResult> CreateReminder([FromBody] CreateReminderCommand reminderCommand)
     {
         var result = await _mediator.Send(reminderCommand);
         if (result.IsValid)
@@ -66,7 +66,7 @@ public class RemindersController : ControllerBase
     }
     
     [HttpPost("update")]
-    public async Task<IActionResult> UpdateNoteById([FromBody] UpdateReminderCommand updateReminderCommand)
+    public async Task<IActionResult> UpdateReminderById([FromBody] UpdateReminderCommand updateReminderCommand)
     {
         var result = await _mediator.Send(updateReminderCommand);
         if (!result.IsValidationValid)
