@@ -14,6 +14,7 @@ public interface ITagsService
     public Task AddTagToReminderAsync(int tagId, int reminderId);
 
     public Task UnbindTagFromNoteAsync(int tagId, int noteId);
+    public Task UnbindTagFromReminderAsync(int tagId, int reminderId);
 
 }
 
@@ -63,6 +64,18 @@ public class TagsService : ITagsService
         var tag = note.Tags.First(t => t.Id == tagId);
         note.Tags.Remove(tag);
         await _noteRepository.UpdateAsync(note);
+    }
+    
+    public async Task UnbindTagFromReminderAsync(int tagId, int reminderId)
+    {
+        var reminder = await _reminderRepository.GetAsync(reminderId);
+        if (reminder.Tags is null)
+        {
+            throw new InvalidOperationException("tag not found");
+        }
+        var tag = reminder.Tags.First(t => t.Id == tagId);
+        reminder.Tags.Remove(tag);
+        await _reminderRepository.UpdateAsync(reminder);
     }
 
     public async Task SetTagsToNoteAsync(ICollection<string> tagTitles, Note note)
