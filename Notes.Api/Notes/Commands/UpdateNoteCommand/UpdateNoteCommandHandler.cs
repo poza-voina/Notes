@@ -3,10 +3,11 @@ using MediatR;
 using Notes.Core.Entities;
 using Notes.Infrastructure.Repositories;
 using Notes.Infrastructure.Services;
+using Notes.Api.Notes.ViewModels;
 
 namespace Notes.Api.Notes.Commands;
 
-public class UpdateNoteCommandHandler : IRequestHandler<UpdateNoteCommand, ValidatableResponse<int>>
+public class UpdateNoteCommandHandler : IRequestHandler<UpdateNoteCommand, ValidatableResponse<NoteVm>>
 {
     private readonly IRepository<Note> _repository;
     private readonly ITagsService _tagsService;
@@ -18,7 +19,7 @@ public class UpdateNoteCommandHandler : IRequestHandler<UpdateNoteCommand, Valid
     }
 
 
-    public async Task<ValidatableResponse<int>> Handle(UpdateNoteCommand request, CancellationToken cancellationToken)
+    public async Task<ValidatableResponse<NoteVm>> Handle(UpdateNoteCommand request, CancellationToken cancellationToken)
     {
         try
         {
@@ -30,11 +31,20 @@ public class UpdateNoteCommandHandler : IRequestHandler<UpdateNoteCommand, Valid
                 await _tagsService.SetTagsToNoteAsync(request.TagsTitles, note);
             }
             await _repository.UpdateAsync(note);
-            return new ValidatableResponse<int> { Result = note.Id };
+            return new ValidatableResponse<NoteVm>
+            {
+                Result = new NoteVm
+                {
+                    Id = note.Id,
+                    Title = note.Title,
+                    Text = note.Text,
+                    Tags = note.Tags
+                }
+            };
         }
         catch (ArgumentException e)
         {
-            return new ValidatableResponse<int>
+            return new ValidatableResponse<NoteVm>
             {
                 ProcessingErrors = new List<ProcessingError> { new ProcessingError { Message = e.Message } }
             };

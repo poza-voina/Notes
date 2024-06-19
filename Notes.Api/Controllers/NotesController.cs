@@ -82,6 +82,6 @@ public class NotesController : ControllerBase
             return NotFound(result.ProcessingErrors);
         }
 
-        return Ok();
+        return Ok(result.Result);
     }
 }
