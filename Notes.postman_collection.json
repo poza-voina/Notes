@@ -1,0 +1,379 @@
+{
+	"info": {
+		"_postman_id": "547810b3-209e-4bf6-bee9-6c14a842fccc",
+		"name": "Notes",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "27661032"
+	},
+	"item": [
+		{
+			"name": "Notes",
+			"item": [
+				{
+					"name": "NoteCreate",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"testNote\",\r\n    \"tagsTitles\": [\"tag1\", \"tag2\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/api/v1/function/note/create"
+					},
+					"response": []
+				},
+				{
+					"name": "GetNoteById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/function/note/get?Id=3",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"function",
+								"note",
+								"get"
+							],
+							"query": [
+								{
+									"key": "Id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllNotes",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{host}}/api/v1/function/note/get-all"
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteNoteById",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Id\": 100\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/api/v1/function/note/delete"
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateNoteById",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Id\": 4,\r\n    \"Title\": \"ALAH123\",\r\n    \"tagsTitles\": [\"tag123\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/api/v1/function/note/update"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Tags",
+			"item": [
+				{
+					"name": "CreateTag",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/api/v1/function/tag/create"
+					},
+					"response": []
+				},
+				{
+					"name": "GetTagById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/function/tag/get?id=1sdfsdfg",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"function",
+								"tag",
+								"get"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "1sdfsdfg"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllTags",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{host}}/api/v1/function/tag/get-all"
+					},
+					"response": []
+				},
+				{
+					"name": "DeleteTagById",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Id\": 3\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/api/v1/function/tag/delete"
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateTagById",
+					"request": {
+						"method": "GET",
+						"header": []
+					},
+					"response": []
+				},
+				{
+					"name": "bindToNote",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"NoteId\": 3,\r\n    \"TagId\": 100\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/api/v1/function/tag/bind-to-note"
+					},
+					"response": []
+				},
+				{
+					"name": "bindToReminder",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"reminderId\": 3,\r\n    \"tagId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/api/v1/function/tag/bind-to-reminder"
+					},
+					"response": []
+				},
+				{
+					"name": "unbindToNote",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"NoteId\": 3,\r\n    \"TagId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/api/v1/function/tag/unbind-from-note"
+					},
+					"response": []
+				},
+				{
+					"name": "unbindToReminder",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"reminderId\": 3,\r\n    \"tagId\": 2\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/api/v1/function/tag/unbind-from-reminder"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Reminder",
+			"item": [
+				{
+					"name": "CreateReminder",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"title\": \"reminder123123123\",\r\n    \"text\": \"text to reminder1231231\",\r\n    \"tagsTitles\": [\"tag1\", \"tag2\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/api/v1/function/reminder/create"
+					},
+					"response": []
+				},
+				{
+					"name": "ReminderGetAll",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{host}}/api/v1/function/reminder/get-all"
+					},
+					"response": []
+				},
+				{
+					"name": "ReminderDeleteById",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "{{host}}/api/v1/function/reminder/"
+					},
+					"response": []
+				},
+				{
+					"name": "GetReminder",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{host}}/api/v1/function/reminder/get?id=3",
+							"host": [
+								"{{host}}"
+							],
+							"path": [
+								"api",
+								"v1",
+								"function",
+								"reminder",
+								"get"
+							],
+							"query": [
+								{
+									"key": "id",
+									"value": "3"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "UpdateReminder",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Id\": \"2\",\r\n    \"Title\": \"Updated Title\",\r\n    \"tags\": [\"tag1\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/api/v1/function/reminder/update"
+					},
+					"response": []
+				},
+				{
+					"name": "TemplateReminder Copy 3",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"url": "{{host}}/api/v1/function/reminder/"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "empty Copy",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "empty Copy",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "host",
+			"value": "http://localhost:5000"
+		}
+	]
+}
