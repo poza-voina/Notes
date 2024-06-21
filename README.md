@@ -7,10 +7,11 @@ docker-compose up -d
 ```
 dotnet ef database update --project Notes.Infrastructure --startup-project Notes.Api
 ```
-Если пункт №2 не сработал:
+3. Если пункт №2 не сработал:
 ```
 dotnet tool install --global dotnet-ef
 ```
-3. Запустить приложение через `dotnet run` или через IDE
+повторить пункт №2
+4. Запустить приложение через `dotnet run --project Notes.Api` или через IDE
 
 Примеры запросов лежат в файле **Notes.postman_collection.json**
