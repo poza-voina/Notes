@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using Notes.Core.Entities;
 using MediatR;
 using Microsoft.AspNetCore.Http.HttpResults;
@@ -27,7 +28,7 @@ public class TagsController : ControllerBase
             return BadRequest(result.ValidationFailures);
         }
 
-        return Ok();
+        return Ok(result.Result);
     }
 
     [HttpGet("get")]
@@ -83,7 +84,7 @@ public class TagsController : ControllerBase
             return NotFound(result.ProcessingErrors);
         }
 
-        return Ok();
+        return Ok(result.Result);
     }
 
     [HttpPost("bind-to-note")]

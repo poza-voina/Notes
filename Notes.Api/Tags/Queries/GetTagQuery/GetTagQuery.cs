@@ -1,5 +1,5 @@
 using MediatR;
-using Notes.Api.Tags.Queries.ViewModels;
+using Notes.Api.Tags.ViewModels;
 
 namespace Notes.Api.Tags.Queries;
 
