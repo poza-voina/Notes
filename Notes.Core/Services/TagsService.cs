@@ -1,22 +1,9 @@
 using System.Collections;
 using Microsoft.EntityFrameworkCore;
 using Notes.Core.Entities;
-using Notes.Infrastructure.Repositories;
-namespace Notes.Infrastructure.Services;
-
-public interface ITagsService
-{
-    public Task AddTagsToNoteAsync(ICollection<string> tagsTitles, Note note);
-    public Task SetTagsAsync<TEntity>(ICollection<string> tagTitles, TEntity entity) where TEntity : ITaggable;
-    public Task SetTagsToReminderAsync(ICollection<string> tagTitles, Reminder reminder);
-    public Task SetTagsToNoteAsync(ICollection<string> tagTitles, Note note);
-    public Task AddTagToNoteAsync(int tagId, int noteId);
-    public Task AddTagToReminderAsync(int tagId, int reminderId);
-
-    public Task UnbindTagFromNoteAsync(int tagId, int noteId);
-    public Task UnbindTagFromReminderAsync(int tagId, int reminderId);
-
-}
+using Notes.Core.Interfaces.IServices;
+using Notes.Core.Interfaces.IRepositories;
+namespace Notes.Core.Services;
 
 public class TagsService : ITagsService
 {

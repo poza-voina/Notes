@@ -1,7 +1,7 @@
-using System.Data.Common;
 using MediatR;
-using Notes.Infrastructure.Repositories;
+using Notes.Core.Interfaces.IRepositories;
 using Notes.Core.Entities;
+
 namespace Notes.Api.Reminders.Commands;
 
 public class DeleteReminderCommandHandler : IRequestHandler<DeleteReminderCommand, ValidatableResponse<int>>

@@ -17,6 +17,7 @@
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Notes.Infrastructure\Notes.Infrastructure.csproj" />
+    <ProjectReference Include="..\Notes.Core\Notes.Core.csproj" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Reminders\ViewModels\" />
@@ -24,6 +25,4 @@
     <Folder Include="Tags\Commands\BindTagCommand\" />
     <Folder Include="Tags\Commands\BindTagToNote\" />
   </ItemGroup>
-
-
 </Project>

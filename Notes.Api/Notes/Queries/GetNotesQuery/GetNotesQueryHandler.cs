@@ -1,7 +1,7 @@
 using MediatR;
 using Microsoft.EntityFrameworkCore;
 using Notes.Core.Entities;
-using Notes.Infrastructure.Repositories;
+using Notes.Core.Interfaces.IRepositories;
 using Notes.Api.Notes.ViewModels;
 
 

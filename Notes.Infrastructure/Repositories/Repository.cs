@@ -1,16 +1,9 @@
 using Microsoft.EntityFrameworkCore;
 using Notes.Core.Entities;
+using Notes.Core.Interfaces.IRepositories;
 
 namespace Notes.Infrastructure.Repositories;
 
-public interface IRepository<TEntity>
-{
-    Task<TEntity> CreateAsync(TEntity entity);
-    Task<TEntity> GetAsync(int id);
-    Task<TEntity> UpdateAsync(TEntity entity);
-    Task DeleteAsync(TEntity entity);
-    public IQueryable<TEntity> Items { get; }
-}
 
 public class Repository<TEntity> : IRepository<TEntity>, IDisposable, IAsyncDisposable where TEntity: BaseEntity
 {

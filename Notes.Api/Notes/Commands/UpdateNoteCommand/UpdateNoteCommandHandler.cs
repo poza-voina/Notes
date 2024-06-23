@@ -1,8 +1,7 @@
-using System.Diagnostics;
 using MediatR;
 using Notes.Core.Entities;
-using Notes.Infrastructure.Repositories;
-using Notes.Infrastructure.Services;
+using Notes.Core.Interfaces.IRepositories;
+using Notes.Core.Interfaces.IServices;
 using Notes.Api.Notes.ViewModels;
 
 namespace Notes.Api.Notes.Commands;

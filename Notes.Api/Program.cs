@@ -12,7 +12,7 @@ using Notes.Api.Notes.Commands;
 using Notes.Api.Notes.Queries;
 using Notes.Api.Tags.Commands;
 using Notes.Api.Extenstions;
-using Notes.Infrastructure.Services;
+using Notes.Core.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;

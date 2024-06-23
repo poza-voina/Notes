@@ -1,7 +1,6 @@
-using System.Data.Common;
 using MediatR;
-using Notes.Infrastructure.Repositories;
 using Notes.Core.Entities;
+using Notes.Core.Interfaces.IRepositories;
 namespace Notes.Api.Notes.Commands;
 
 public class DeleteNoteCommandHandler : IRequestHandler<DeleteNoteCommand, ValidatableResponse<int>>

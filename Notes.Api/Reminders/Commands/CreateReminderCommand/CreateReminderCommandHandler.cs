@@ -2,8 +2,8 @@ using FluentValidation;
 using MediatR;
 using Notes.Api.Reminders.ViewModels;
 using Notes.Core.Entities;
-using Notes.Infrastructure.Repositories;
-using Notes.Infrastructure.Services;
+using Notes.Core.Interfaces.IRepositories;
+using Notes.Core.Interfaces.IServices;
 
 namespace Notes.Api.Reminders.Commands;
 

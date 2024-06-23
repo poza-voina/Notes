@@ -1,5 +1,5 @@
 using MediatR;
-using Notes.Infrastructure.Repositories;
+using Notes.Core.Interfaces.IRepositories;
 using Notes.Core.Entities;
 
 namespace Notes.Api.Tags.Commands;

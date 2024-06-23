@@ -1,5 +1,5 @@
 using MediatR;
-using Notes.Infrastructure.Services;
+using Notes.Core.Interfaces.IServices;
 
 namespace Notes.Api.Tags.Commands;
 

@@ -1,7 +1,6 @@
-using System.Diagnostics;
 using MediatR;
 using Notes.Core.Entities;
-using Notes.Infrastructure.Repositories;
+using Notes.Core.Interfaces.IRepositories;
 using Notes.Api.Tags.Queries.ViewModels;
 
 namespace Notes.Api.Tags.Queries;

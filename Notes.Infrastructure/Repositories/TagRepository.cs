@@ -2,14 +2,10 @@ using System.Collections;
 using System.Linq;
 using Microsoft.EntityFrameworkCore;
 using Notes.Core.Entities;
+using Notes.Core.Interfaces.IRepositories;
+
 namespace Notes.Infrastructure.Repositories;
 
-public interface ITagRepository : IRepository<Tag>
-{
-    public Task<ICollection<Tag>> CreateTagsAsync(ICollection<string> tagsTitles);
-
-    public Task<ICollection<Tag>> CreateNonExistingTagsAsync(IQueryable<Tag> allTags);
-}
 
 
 public class TagRepository : Repository<Tag>, ITagRepository

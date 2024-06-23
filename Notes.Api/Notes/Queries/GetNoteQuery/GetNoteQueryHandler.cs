@@ -1,6 +1,6 @@
 using MediatR;
 using Notes.Core.Entities;
-using Notes.Infrastructure.Repositories;
+using Notes.Core.Interfaces.IRepositories;
 using Notes.Api.Notes.ViewModels;
 
 namespace Notes.Api.Notes.Queries;
