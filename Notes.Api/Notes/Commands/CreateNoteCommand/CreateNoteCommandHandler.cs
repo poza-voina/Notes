@@ -1,4 +1,3 @@
-using FluentValidation;
 using MediatR;
 using Notes.Core.Entities;
 using Notes.Core.Interfaces.IServices;
@@ -10,12 +9,10 @@ namespace Notes.Api.Notes.Commands;
 public class CreateNoteCommandHandler : IRequestHandler<CreateNoteCommand, ValidatableResponse<NoteVm>>
 {
     private readonly IRepository<Note> _noteRepository;
-    private readonly IValidator<CreateNoteCommand> _validator;
     private readonly ITagsService _tagsService;
-    public CreateNoteCommandHandler(IRepository<Note> noteRepository, IValidator<CreateNoteCommand> validator, ITagsService tagsService)
+    public CreateNoteCommandHandler(IRepository<Note> noteRepository, ITagsService tagsService)
     {
         _noteRepository = noteRepository;
-        _validator = validator;
         _tagsService = tagsService;
     }
     

@@ -20,6 +20,7 @@ public class ApplicationDbContext : DbContext
         modelBuilder.Entity<Note>().HasKey(n => n.Id);
         modelBuilder.Entity<Reminder>().HasKey(r => r.Id);
         modelBuilder.Entity<Tag>().HasKey(t => t.Id);
+        modelBuilder.Entity<Tag>().HasIndex(t => t.Title).IsUnique();
 
         modelBuilder.Entity<Note>().HasMany(e => e.Tags).WithMany(e => e.Notes).UsingEntity(j => j.ToTable("NotesTags"));
         modelBuilder.Entity<Reminder>().HasMany(e => e.Tags).WithMany(e => e.Reminders)
