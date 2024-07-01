@@ -9,6 +9,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notes.Core", "Notes.Core\No
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notes.Infrastructure", "Notes.Infrastructure\Notes.Infrastructure.csproj", "{1F632D12-C6D2-4310-9169-CA1C9264245B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Notes.Tests", "Notes.Tests\Notes.Tests.csproj", "{15183348-86AE-4092-A7DA-08AA96A353AE}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,5 +32,13 @@ Global
 		{1F632D12-C6D2-4310-9169-CA1C9264245B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1F632D12-C6D2-4310-9169-CA1C9264245B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1F632D12-C6D2-4310-9169-CA1C9264245B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{45728D52-72EE-477C-9EE5-D0CC3319012A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45728D52-72EE-477C-9EE5-D0CC3319012A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45728D52-72EE-477C-9EE5-D0CC3319012A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45728D52-72EE-477C-9EE5-D0CC3319012A}.Release|Any CPU.Build.0 = Release|Any CPU
+		{15183348-86AE-4092-A7DA-08AA96A353AE}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{15183348-86AE-4092-A7DA-08AA96A353AE}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{15183348-86AE-4092-A7DA-08AA96A353AE}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{15183348-86AE-4092-A7DA-08AA96A353AE}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
