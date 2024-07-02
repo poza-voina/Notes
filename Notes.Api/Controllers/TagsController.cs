@@ -23,9 +23,22 @@ public class TagsController : ControllerBase
     public async Task<IActionResult> CreateTag([FromBody] CreateTagCommand createTagCommand)
     {
         var result = await _mediator.Send(createTagCommand);
-        if (!result.IsValid)
+        if (!result.IsValidationValid)
         {
             return BadRequest(result.ValidationFailures);
+        }
+        
+        if (!result.IsProcessingValid)
+        {
+            if (result.ProcessingErrors!.First().Type == ProcessingErrors.NotFound)
+            {
+                return NotFound(result.ProcessingErrors);
+            }
+
+            if (result.ProcessingErrors!.First().Type == ProcessingErrors.Conflict)
+            {
+                return Conflict(result.ProcessingErrors);
+            }
         }
 
         return Ok(result.Result);
@@ -44,7 +57,6 @@ public class TagsController : ControllerBase
         {
             return NotFound(result.ProcessingErrors);
         }
-
         return Ok(result.Result);
     }
 

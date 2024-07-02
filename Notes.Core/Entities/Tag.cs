@@ -15,4 +15,15 @@ public class Tag : BaseEntity
     
     [JsonIgnore]
     public virtual ICollection<Reminder>? Reminders { get; set; } = default!;
+
+    public override bool Equals(object? obj)
+    {
+        if (obj == null || !(obj is Tag))
+        {
+            return false;
+        }
+
+        var other = (Tag)obj;
+        return this.Title == other.Title;
+    }
 }

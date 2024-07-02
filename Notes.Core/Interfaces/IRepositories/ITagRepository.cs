@@ -7,4 +7,7 @@ public interface ITagRepository : IRepository<Tag>
     public Task<ICollection<Tag>> CreateTagsAsync(ICollection<string> tagsTitles);
 
     public Task CreateNonExistingTagsAsync(IEnumerable<Tag> nonExistingTags);
+
+    public Task<Tag> GetTagByTitleAsync(string title);
+
 }

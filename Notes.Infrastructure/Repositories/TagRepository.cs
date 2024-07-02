@@ -17,15 +17,24 @@ public class TagRepository : Repository<Tag>, ITagRepository
 
     public async Task<ICollection<Tag>> CreateTagsAsync(ICollection<string> tagsTitles)
     {
+        IEnumerable<Tag> existing;
+        IEnumerable<Tag> nonExisting;
+        (existing, nonExisting) = await CheckTagsTitlesAsync(tagsTitles);
+        await CreateNonExistingTagsAsync(nonExisting);
+        return existing.Concat(nonExisting).ToList();
+    }
+
+    public async Task<(IEnumerable<Tag> existing, IEnumerable<Tag> nonExisting)> CheckTagsTitlesAsync(ICollection<string> tagsTitles)
+    {
         IEnumerable<Tag> existing = Items
             .Where(tag => tagsTitles.Any(tagTitle => tag.Title == tagTitle))
             .ToList();
-        IEnumerable<Tag> nonExisting  = tagsTitles
+        Console.WriteLine(Items.Count());
+        IEnumerable<Tag> nonExisting = tagsTitles
             .Where(tagTitle => existing.All(tag => tagTitle != tag.Title))
             .Select(item => new Tag {Title = item});
-        
-        await CreateNonExistingTagsAsync(nonExisting);
-        return existing.Concat(nonExisting).ToList();
+
+        return (existing, nonExisting);
     }
     
     public async Task CreateNonExistingTagsAsync(IEnumerable<Tag> nonExistingTags)
@@ -35,5 +44,8 @@ public class TagRepository : Repository<Tag>, ITagRepository
             DbContext.Add(tag);
         }
         await DbContext.SaveChangesAsync();
-    } 
+    }
+
+    public async Task<Tag> GetTagByTitleAsync(string title) =>
+        await Set.FirstOrDefaultAsync(tag => tag.Title == title) ?? throw new ArgumentException($"Entity with id = {title} not found.");
 }
