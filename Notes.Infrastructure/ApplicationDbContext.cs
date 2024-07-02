@@ -6,10 +6,11 @@ namespace Notes.Infrastructure;
 
 public class ApplicationDbContext : DbContext
 {
-    public DbSet<Note> Notes => Set<Note>();
-    public DbSet<Reminder> Reminders => Set<Reminder>();
-    public DbSet<Tag> Tags => Set<Tag>();
+    public virtual DbSet<Note> Notes => Set<Note>();
+    public virtual DbSet<Reminder> Reminders => Set<Reminder>();
+    public virtual DbSet<Tag> Tags => Set<Tag>();
     
+    public ApplicationDbContext() {}
     public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options) : base(options)
     {
         

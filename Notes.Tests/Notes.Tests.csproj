@@ -23,4 +23,9 @@
     <ProjectReference Include="..\Notes.Api\Notes.Api.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Api\Controllers\" />
+    <Folder Include="Core\Services\" />
+  </ItemGroup>
+
 </Project>
