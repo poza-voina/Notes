@@ -8,5 +8,7 @@ public class ReminderVm
     public string? Title { get; init; }
     public string? Text { get; init; }
     
+    public DateTime ReminderTime { get; init; }
+    
     public ICollection<Tag>? Tags { get; set; }
 }

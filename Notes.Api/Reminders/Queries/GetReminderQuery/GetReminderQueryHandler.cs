@@ -19,7 +19,7 @@ public class GetReminderQueryHandler : IRequestHandler<GetReminderQuery, Validat
         {
             var reminder = await _reminderRepository.GetAsync(request.Id);
             return new ValidatableResponse<ReminderVm>
-                { Result = new ReminderVm { Id = reminder.Id, Title = reminder.Title, Text = reminder.Text, Tags = reminder.Tags} };
+                { Result = new ReminderVm { Id = reminder.Id, Title = reminder.Title, Text = reminder.Text, Tags = reminder.Tags, ReminderTime = reminder.ReminderTime} };
         }
         catch (ArgumentException e)
         {

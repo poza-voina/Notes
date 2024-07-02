@@ -19,13 +19,13 @@ public class CreateReminderCommandHandler : IRequestHandler<CreateReminderComman
     
     public async Task<ValidatableResponse<ReminderVm>> Handle(CreateReminderCommand request, CancellationToken cancellationToken)
     {
-        Reminder reminder = new Reminder { Title = request.Title ?? "", Text = request.Text ?? ""};
+        Reminder reminder = new Reminder { Title = request.Title ?? "", Text = request.Text ?? "", ReminderTime = request.ReminderTime!.Value};
         if (request.TagsTitles is not null && request.TagsTitles.Count != 0)
         {
             await _tagsService.SetTagsToReminderAsync(request.TagsTitles, reminder);
         }
         
         reminder = await _reminderRepository.CreateAsync(reminder);
-        return new ValidatableResponse<ReminderVm> {Result = new ReminderVm {Id = reminder.Id, Title = reminder.Title, Text = reminder.Text, Tags = reminder.Tags}};
+        return new ValidatableResponse<ReminderVm> {Result = new ReminderVm {Id = reminder.Id, Title = reminder.Title, Text = reminder.Text, Tags = reminder.Tags, ReminderTime = reminder.ReminderTime}};
     }
 }

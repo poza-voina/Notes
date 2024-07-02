@@ -19,5 +19,7 @@ public class CreateReminderCommandValidator : AbstractValidator<CreateReminderCo
         RuleFor(x => x.Text)
             .Must((cmd, text) => !string.IsNullOrEmpty(text) || !string.IsNullOrEmpty(cmd.Title))
             .WithMessage("Text can be null only if Title is provided.");
+
+        RuleFor(x => x.ReminderTime).NotEmpty();
     }
 }

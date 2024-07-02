@@ -16,7 +16,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"testNote\",\r\n    \"tagsTitles\": [\"tag1\", \"tag2\"]\r\n}",
+							"raw": "{\r\n    \"title\": \"testNote\",\r\n    \"tagsTitles\": [\"tag3\", \"tag4\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -29,11 +29,23 @@
 				},
 				{
 					"name": "GetNoteById",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
-							"raw": "{{host}}/api/v1/function/note/get?Id=3",
+							"raw": "{{host}}/api/v1/function/note/get?Id=9",
 							"host": [
 								"{{host}}"
 							],
@@ -47,7 +59,7 @@
 							"query": [
 								{
 									"key": "Id",
-									"value": "3"
+									"value": "9"
 								}
 							]
 						}
@@ -70,7 +82,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"Id\": 100\r\n}",
+							"raw": "{\r\n    \"Id\": 5\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -88,7 +100,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"Id\": 4,\r\n    \"Title\": \"ALAH123\",\r\n    \"tagsTitles\": [\"tag123\"]\r\n}",
+							"raw": "{\r\n    \"Id\": 2,\r\n    \"Title\": \"ALAH123\",\r\n    \"tagsTitles\": [\"tag123\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -111,7 +123,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \r\n}",
+							"raw": "{\r\n    \"Title\": \"sdfgsdfgsdfgdfgssdfg\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -128,7 +140,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{host}}/api/v1/function/tag/get?id=1sdfsdfg",
+							"raw": "{{host}}/api/v1/function/tag/get?id=1",
 							"host": [
 								"{{host}}"
 							],
@@ -142,7 +154,7 @@
 							"query": [
 								{
 									"key": "id",
-									"value": "1sdfsdfg"
+									"value": "1"
 								}
 							]
 						}
@@ -179,8 +191,18 @@
 				{
 					"name": "UpdateTagById",
 					"request": {
-						"method": "GET",
-						"header": []
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"Id\": 1,\r\n    \"Title\": \"valerij\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{host}}/api/v1/function/tag/update"
 					},
 					"response": []
 				},
@@ -191,7 +213,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"NoteId\": 3,\r\n    \"TagId\": 100\r\n}",
+							"raw": "{\r\n    \"NoteId\": 1,\r\n    \"TagId\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -209,7 +231,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"reminderId\": 3,\r\n    \"tagId\": 2\r\n}",
+							"raw": "{\r\n    \"reminderId\": 4,\r\n    \"tagId\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -227,7 +249,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"NoteId\": 3,\r\n    \"TagId\": 2\r\n}",
+							"raw": "{\r\n    \"NoteId\": 1,\r\n    \"TagId\": 1\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -268,7 +290,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"reminder123123123\",\r\n    \"text\": \"text to reminder1231231\",\r\n    \"tagsTitles\": [\"tag1\", \"tag2\"]\r\n}",
+							"raw": "{\r\n    \"title\": \"reminder1\",\r\n    \"text\": \"text to reminder1231231\",\r\n    \"ReminderTime\": \"2024-07-02T14:30:00Z\",\r\n    \"tagsTitles\": [\"tag1\", \"tag2\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -331,7 +353,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"Id\": \"2\",\r\n    \"Title\": \"Updated Title\",\r\n    \"tags\": [\"tag1\"]\r\n}",
+							"raw": "{\r\n    \"Id\": \"3\",\r\n    \"Title\": \"Updated 3\",\r\n    \"tags\": [\"tag1\"]\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

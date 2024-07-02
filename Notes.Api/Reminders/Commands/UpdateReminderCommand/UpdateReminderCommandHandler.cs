@@ -29,6 +29,11 @@ public class UpdateReminderCommandHandler : IRequestHandler<UpdateReminderComman
             {
                 await _tagsService.SetTagsToReminderAsync(request.TagsTitles, reminder);
             }
+
+            if (request.ReminderTime is not null)
+            {
+                reminder.ReminderTime = request.ReminderTime.Value;
+            }
             await _reminderRepository.UpdateAsync(reminder);
             return new ValidatableResponse<ReminderVm>
             {
@@ -37,7 +42,8 @@ public class UpdateReminderCommandHandler : IRequestHandler<UpdateReminderComman
                     Id = reminder.Id,
                     Title = reminder.Title,
                     Text = reminder.Text,
-                    Tags = reminder.Tags
+                    Tags = reminder.Tags,
+                    ReminderTime = reminder.ReminderTime
                 }
             };
         }
