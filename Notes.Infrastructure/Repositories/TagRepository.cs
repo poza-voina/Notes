@@ -20,7 +20,10 @@ public class TagRepository : Repository<Tag>, ITagRepository
         IEnumerable<Tag> existing;
         IEnumerable<Tag> nonExisting;
         (existing, nonExisting) = await CheckTagsTitlesAsync(tagsTitles);
-        await CreateNonExistingTagsAsync(nonExisting);
+        if (nonExisting.Count() != 0)
+        {
+            await CreateNonExistingTagsAsync(nonExisting);
+        }
         return existing.Concat(nonExisting).ToList();
     }
 
@@ -29,10 +32,9 @@ public class TagRepository : Repository<Tag>, ITagRepository
         IEnumerable<Tag> existing = Items
             .Where(tag => tagsTitles.Any(tagTitle => tag.Title == tagTitle))
             .ToList();
-        Console.WriteLine(Items.Count());
         IEnumerable<Tag> nonExisting = tagsTitles
-            .Where(tagTitle => existing.All(tag => tagTitle != tag.Title))
-            .Select(item => new Tag {Title = item});
+            .Where(tagTitle => !existing.Any(tag => tagTitle == tag.Title))
+            .Select(item => new Tag {Title = item}).ToList();
 
         return (existing, nonExisting);
     }
