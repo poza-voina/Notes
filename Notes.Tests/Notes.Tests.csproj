@@ -25,6 +25,10 @@
 
   <ItemGroup>
     <Folder Include="Api\Controllers\" />
+    <Folder Include="Api\Tags\Commands\BindTagToReminderCommand\" />
+    <Folder Include="Api\Tags\Commands\UnbindTagFromReminderCommand\" />
+    <Folder Include="Api\Tags\DeleteTagCommand\" />
+    <Folder Include="Api\Tags\UpdateTagCommand\" />
     <Folder Include="Core\Services\" />
   </ItemGroup>
 
