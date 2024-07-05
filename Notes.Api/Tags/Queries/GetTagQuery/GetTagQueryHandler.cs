@@ -21,7 +21,7 @@ public class GetTagQueryHandler : IRequestHandler<GetTagQuery, ValidatableRespon
             var tag = await _tagRepository.GetAsync(request.Id!.Value);
             return new ValidatableResponse<TagVm>
             {
-                Result = new TagVm { Title = tag.Title }
+                Result = new TagVm { Id= tag.Id, Title = tag.Title }
             };
         }
         catch (ArgumentException e)
