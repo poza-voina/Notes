@@ -13,10 +13,14 @@ dotnet tool install --global dotnet-ef
 ```
 повторить пункт №2
 
-4. Запустить приложение через `dotnet run --project Notes.Api` или через IDE
+4. Запустить приложение через
+```
+dotnet run --project Notes.Api
+```
+или через IDE
 
 Чтобы запустить тесты 
 ```
 dotnet test
 ```
-Примеры запросов лежат в файле **Notes.postman_collection.json**
+Примеры запросов лежат в файле **Notes.postman_collection.json** или <http://localhost:5000/swagger/index.html>
