@@ -41,6 +41,9 @@ services.AddValidatorsFromAssemblyContaining<UpdateTagCommandValidator>();
 services.AddTransient(typeof(IPipelineBehavior<,>), typeof(ValidationBehavior<,>));
 services.AddRepositories();
 services.AddServices();
+services.AddSwaggerGen();
+
+
 
 
 services.AddCors(options =>
@@ -60,6 +63,9 @@ var app = builder.Build();
 //     app.UseExceptionHandler("/Error");
 //     app.UseHsts();
 // }
+app.UseSwagger()
+    .UseSwaggerUI();
+
 app.MapControllers();
 // app.UseMiddleware<ExceptionHandlingMiddleware>();
 
