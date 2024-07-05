@@ -12,6 +12,11 @@ dotnet ef database update --project Notes.Infrastructure --startup-project Notes
 dotnet tool install --global dotnet-ef
 ```
 повторить пункт №2
+
 4. Запустить приложение через `dotnet run --project Notes.Api` или через IDE
 
+Чтобы запустить тесты 
+```
+dotnet test
+```
 Примеры запросов лежат в файле **Notes.postman_collection.json**
