@@ -93,7 +93,17 @@ public class TagsController : ControllerBase
 
         if (!result.IsProcessingValid)
         {
-            return NotFound(result.ProcessingErrors);
+            if (result.ProcessingErrors!.First().Type == ProcessingErrors.Conflict)
+            {
+                return Conflict(result.ProcessingErrors);
+            }
+
+            if (result.ProcessingErrors!.First().Type == ProcessingErrors.NotFound)
+            {
+                return NotFound(result.ProcessingErrors);
+
+            }
+            
         }
 
         return Ok(result.Result);

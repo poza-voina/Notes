@@ -50,4 +50,7 @@ public class TagRepository : Repository<Tag>, ITagRepository
 
     public async Task<Tag> GetTagByTitleAsync(string title) =>
         await Set.FirstOrDefaultAsync(tag => tag.Title == title) ?? throw new ArgumentException($"Entity with id = {title} not found.");
+    
+    public async Task<Tag?> GetTagByTitleOrDefaultAsync(string title) =>
+        await Set.FirstOrDefaultAsync(tag => tag.Title == title);
 }
