@@ -21,5 +21,8 @@ public class CreateReminderCommandValidator : AbstractValidator<CreateReminderCo
             .WithMessage("Text can be null only if Title is provided.");
 
         RuleFor(x => x.ReminderTime).NotEmpty();
+        RuleFor(e => e.ReminderTime)
+            .GreaterThan(DateTime.Now)
+            .WithMessage("Note time must be in the future.");
     }
 }

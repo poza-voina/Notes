@@ -17,9 +17,12 @@ using Notes.Core.Services;
 var builder = WebApplication.CreateBuilder(args);
 var services = builder.Services;
 
-var connectionString =  
-    "User ID=postgres;Password=psql;Server=localhost;Port=1111;Database=Notes;Include Error Detail=true";
-services.AddDbContext(connectionString);
+var configuration = new ConfigurationBuilder()
+    .SetBasePath(AppDomain.CurrentDomain.BaseDirectory)
+    .AddJsonFile("appsettings.json")
+    .Build();
+
+services.AddDbContext(configuration.GetConnectionString("DefaultConnection")!);
 
 services.AddControllers();
 services.AddRouting();

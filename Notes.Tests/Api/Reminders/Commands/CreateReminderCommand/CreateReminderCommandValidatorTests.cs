@@ -2,6 +2,7 @@ using FluentAssertions;
 using FluentValidation;
 using Moq;
 using Notes.Api.Reminders.Commands;
+using Notes.Core.Entities;
 using Xunit;
 
 public class CreateReminderCommandValidatorTests
@@ -54,7 +55,7 @@ public class CreateReminderCommandValidatorTests
     }
 
     [Fact]
-    public void Should_Validate_Error_When_Title_Is_Null_And_Text_Is_Null()
+    public void Validate_ShouldError_WhenTitleIsNullAndTextIsNull()
     {
         var command = new CreateReminderCommand { Title = null, Text = null, ReminderTime = DateTime.Now };
 
@@ -64,12 +65,22 @@ public class CreateReminderCommandValidatorTests
     }
 
     [Fact]
-    public void Should_Validate_Error_When_ReminderTime_Is_Empty()
+    public void Validate_ShouldError_WhenReminderTimeIsEmpty()
     {
         var command = new CreateReminderCommand { Title = "Test Title", Text = "Test Text" };
 
         var result = _validator.Validate(command);
 
         result.IsValid.Should().BeFalse();
+    }
+    
+    [Fact]
+    public void NoteTime_ShouldBeInFuture()
+    {
+        var command = new CreateReminderCommand { Title = "Test Title", Text = "Test Text", ReminderTime = DateTime.Now.AddDays(-1) };
+        
+        var result = new CreateReminderCommandValidator().Validate(command).IsValid;
+
+        result.Should().BeFalse();
     }
 }

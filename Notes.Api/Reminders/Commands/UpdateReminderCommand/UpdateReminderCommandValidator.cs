@@ -9,6 +9,9 @@ public class UpdateReminderCommandValidator : AbstractValidator<UpdateReminderCo
     public UpdateReminderCommandValidator()
     {
         RuleFor(x => x.Id).NotEmpty();
-        RuleFor(cmd => cmd).Must(x => x.Text is not null || x.Title is not null || x.TagsTitles is not null);
+        RuleFor(cmd => cmd).Must(x => x.Text is not null || x.Title is not null || x.TagsTitles is not null || x.ReminderTime is not null);
+        RuleFor(e => e.ReminderTime)
+            .GreaterThan(DateTime.Now)
+            .WithMessage("Note time must be in the future.");
     }
 }
